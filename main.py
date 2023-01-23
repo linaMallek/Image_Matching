@@ -13,7 +13,7 @@ SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Main Menu")
-bg = pygame.image.load("images/960x0.jpg")
+bg = pygame.image.load("images/Multi_UI.png")
 #game variables
 game_paused = False
 menu_state = "main"
@@ -32,10 +32,10 @@ quit_img = pygame.image.load('images/quit.png').convert_alpha()
 
 
 #create button instances
-resume_button = button.Button(297, 100, bloc_img, 1)
-dico_button = button.Button(297, 230, dico_img, 1)
-clear_button = button.Button(297, 355, clear_img, 1)
-quit_button = button.Button(320,470, quit_img, 1)
+resume_button = button.Button(150, 230, bloc_img, 1)
+dico_button = button.Button(397, 230, dico_img, 1)
+clear_button = button.Button(287, 325, clear_img, 1)
+quit_button = button.Button(20,540, quit_img, 1)
 
 
 def draw_text(text, font, text_col, x, y):

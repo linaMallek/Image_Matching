@@ -30,24 +30,24 @@ def MSE(bloc1, bloc2):
 
 def recherchre_block():
 
-    img1 = cv2.imread('image092.png')
-    img2 = cv2.imread('image072.png')
-    img3 = cv2.imread('new_image.png')
-# les images sont en gris 
-    grayImg1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    grayImg2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+    imgB1 = cv2.imread('images/image092.png')
+    imgB2 = cv2.imread('images/image072.png')
+    imgB3 = cv2.imread('images/new_image.png')
+#les images sont en gris 
+    grayImgB1 = cv2.cvtColor(imgB1, cv2.COLOR_BGR2GRAY)
+    grayImgB2 = cv2.cvtColor(imgB2, cv2.COLOR_BGR2GRAY)
     file_coordonner=[]
     file_coordonner1=[]
 
 
     tps1 = time.time()
-    for i in range (0,grayImg1.shape[0]-16,16): #colonne with step 16 
-     for j in range (0,grayImg2.shape[1]-16,16): #ligne 
-           block1 = grayImg1[i:i + 16,j:j + 16]
+    for i in range (0,grayImgB1.shape[0]-16,16): #colonne with step 16 
+     for j in range (0,grayImgB2.shape[1]-16,16): #ligne 
+           block1 = grayImgB1[i:i + 16,j:j + 16]
            min1 = inf 
-           for i1 in range (max(0,i-7),min(i+7,grayImg1.shape[0]-16)):
-              for  j1 in range (max(0,j-7),min(j+7,grayImg1.shape[1]-16)):
-                block2 = grayImg2[i1:i1 + 16,j1:j1 + 16]
+           for i1 in range (max(0,i-7),min(i+7,grayImgB1.shape[0]-16)):
+              for  j1 in range (max(0,j-7),min(j+7,grayImgB1.shape[1]-16)):
+                block2 = grayImgB2[i1:i1 + 16,j1:j1 + 16]
 
                 new_MSE = MSE(block1, block2)
                 if new_MSE  < min1:
@@ -62,28 +62,28 @@ def recherchre_block():
             file_coordonner.append((x2,x1))
             file_coordonner1.append((j,i))
 
-            img3[i:i+16, j:j+16]= img1[x1:x1+16, x2:x2+16]
+            imgB3[i:i+16, j:j+16]= imgB1[x1:x1+16, x2:x2+16]
            
     tps2 = time.time()
 
     print("le temps d'execution est"+ str(tps2 - tps1))   
 
     for i in range (len(file_coordonner)) :
-     cv2.rectangle(img2, (file_coordonner[i][0], file_coordonner[i][1]),
+     cv2.rectangle(imgB2, (file_coordonner[i][0], file_coordonner[i][1]),
                       (file_coordonner[i][0]+16,file_coordonner[i][1]+16), (0, 0, 255), 2) 
 
-     cv2.rectangle(img1, (file_coordonner1[i][0], file_coordonner1[i][1]),
+     cv2.rectangle(imgB1, (file_coordonner1[i][0], file_coordonner1[i][1]),
                       (file_coordonner1[i][0]+16,file_coordonner1[i][1]+16), (0, 255, 0), 2) 
 
     #resize the window pop images 
-    imS2 = cv2.resize(img2, (960, 540))  
-    imS3 = cv2.resize(img3, (960, 540)) 
-    imS1 = cv2.resize(img1, (960, 540)) 
+    imSB2 = cv2.resize(imgB2, (960, 540))  
+    imSB3 = cv2.resize(imgB3, (960, 540)) 
+    imSB1 = cv2.resize(imgB1, (960, 540)) 
 
-    cv2.imshow("imageB", imS1)
-    cv2.imshow("imageB2", imS2)
-    cv2.imshow("imageB3", imS3)
-    if cv2.waitKey(3) : print("lina 2")
+    cv2.imshow("imageB", imSB1)
+    cv2.imshow("imageB2", imSB2)
+    cv2.imshow("imageB3", imSB3)
+    if cv2.waitKey(3) : print("Done")
 
 def mse_blocks(block1,origin_x,origin_y,step):            
              
@@ -223,7 +223,7 @@ def recherche_decho():
     
     
     if cv2.waitKey(2)    : 
-      print("lina")
+      print("Done")
       
       return(tps2 - tps1)                               
 
