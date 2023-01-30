@@ -6,11 +6,6 @@ import random
 from PIL import Image, ImageDraw, ImageFilter
 
 
-box_coordinates = []
-box2_coordinates = []
-
-
-
 img1 = cv2.imread("images/image072.png")
 img2 = cv2.imread("images/image092.png")
 
