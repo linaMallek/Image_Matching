@@ -4,12 +4,23 @@ from math import inf
 import time
 import random
 from PIL import Image, ImageDraw, ImageFilter
+
+
 box_coordinates = []
 box2_coordinates = []
 
+
+
 img1 = cv2.imread("images/image072.png")
 img2 = cv2.imread("images/image092.png")
-img3= cv2.imread('images/new_image.png') 
+
+# creer the new image 
+img = np.zeros([img1.shape[0],img1.shape[1],3],dtype=np.uint8)
+img.fill(0) # or img[:] = 255
+cv2.imwrite("new_image.jpg",img)
+
+img3= cv2.imread('new_image.jpg') 
+
 
 # add borders 
 image_bordered = cv2.copyMakeBorder(src=img1,top=64, bottom=64, left=64, right=64, borderType=cv2.BORDER_CONSTANT)
@@ -159,8 +170,54 @@ def mse_blocks(block1,origin_x,origin_y,step):
             
              return min , (mse_x,mse_j)
 
+def mse_blocks2(block1,origin_x,origin_y,step):            
+             List=[]
+             #block de meme position 
+             block2=grayImg1[origin_x:origin_x + 16,origin_y:origin_y + 16]
+             min=MSE(block1, block2)
+             List.append((MSE(block1, block2),(origin_x,origin_y)))
+             #blocken cote gauche  
+             x1=origin_x
+             x2=origin_y-step           
+             block3=grayImg1[x1:x1 + 16,x2:x2 + 16]
+             List.append((MSE(block1, block3),(x1,x2))  )         
+            #blocken cote gauche  en haut 
+             x1_h=x1-step
+             x2_h=x2
+             block4=grayImg1[x1_h:x1_h + 16,x2_h:x2_h + 16]
+             List.append((MSE(block1, block4),(x1_h,x2_h)))
+            #blocken cote gauche  en bas
+             x1_b=x1+step
+             x2_b=x2        
+             block5=grayImg1[x1_b:x1_b + 16,x2_b:x2_b + 16]
+             List.append((MSE(block1, block5),(x1_b,x2_b)))
+            #block en haut de celui du milieu 
+             x_milH=origin_x-step  
+             j_milH=origin_y
+             block6=grayImg1[x_milH:x_milH + 16,j_milH:j_milH+ 16]
+             List.append((MSE(block1, block6),(x_milH,j_milH)))
+            #block milieu en bas 
+             x_milB=origin_x+step  
+             j_milB=origin_y
+             block7=grayImg1[x_milB:x_milB + 16,j_milB:j_milB+ 16]
+             List.append((MSE(block1,block7),(x_milB,j_milB)))
+                         
+            #block droit 
+             x_droit=origin_x 
+             j_droit=origin_y+step        
+             block8=grayImg1[x_droit:x_droit+ 16,j_droit:j_droit+ 16]
+             List.append((MSE(block1,block8),(x_droit,j_droit)))
+            
+            #block droit haut
+             x_droitH=x_droit-step
+             j_droitH=j_droit           
+             block9=grayImg1[x_droitH:x_droitH+ 16,j_droitH:j_droitH+ 16]
+             List.append((MSE(block1,block9),(x_droitH,j_droitH)))
+             
+             Min_mse , (mse_x,mse_j)=min(List[0])
+             return Min_mse , (mse_x,mse_j)
+
 def recherche_decho():
-    m=3
     file_coordonner=[]
     file_coordonner1=[]
     
@@ -189,13 +246,13 @@ def recherche_decho():
 
 
            if min > 50 : 
-            print(min)
+            
             file_coordonner.append((mse_j-64,mse_x-64))
             file_coordonner1.append((j,i))
             grayImg3[i:i+16,j:j+16]= grayImg2[i:i + 16,j:j + 16]-grayImg1[mse_x:mse_x+16,mse_j:mse_j+16]
             
     tps2 = time.time()
-     # tp =67 projet=19
+    #tp=67 projet=19
     print("le temps d'execution est"+ str(tps2 - tps1))
     for i in range (len(file_coordonner)) :
        couleur = (random.randint(0, 255),random.randint(0, 255),random.randint(0, 255))
@@ -216,11 +273,6 @@ def recherche_decho():
     cv2.imshow("image", imS1)
     cv2.imshow("image2", imS2)
     cv2.imshow("image3",imS3)
-    
-
-    #cv2.waitKey(0) 
-    #return(tps2 - tps1)
-    
     
     if cv2.waitKey(2)    : 
       print("Done")
