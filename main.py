@@ -15,7 +15,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Main Menu")
 bg = pygame.image.load("images/Multi_UI.png")
 #game variables
-game_paused = False
+paused = False
 menu_state = "main"
 
 #define fonts
@@ -71,7 +71,7 @@ while run:
       for event in pygame.event.get():
          if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-              game_paused = True
+             paused = True
          if event.type == pygame.QUIT:
              run = False
 
