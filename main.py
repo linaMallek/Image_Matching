@@ -42,16 +42,16 @@ def draw_text(text, font, text_col, x, y):
   img = font.render(text, True, text_col)
   screen.blit(img, (x, y))
 
-#game loop
+
 run = True
 while run:
 
       screen.blit(bg, (0, 0))
 
-  #check if game is paused
+  
 
       menu_state == "main"
-      #draw pause screen buttons
+
       if resume_button.draw(screen):
         recherchre_block()
         
