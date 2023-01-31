@@ -1,4 +1,5 @@
 # Menu_MULTIP
 ## Execution 
 - Go to main.py execute 
-- to make choice click on a button  
+- to make choice left-click on the button
+
