@@ -197,7 +197,7 @@ def recherche_decho():
 
 
            if min > 50 : 
-            
+            print(min) #this line adds from execution time 
             file_coordonner.append((mse_j-64,mse_x-64))
             file_coordonner1.append((j,i))
             #residu 
