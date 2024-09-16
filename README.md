@@ -1,3 +1,7 @@
+Input: Two images.
+
+Output: Rectangles drawn around matching pixels in both images, highlighting the areas of similarity.
+
 This project includes two main functionalities:
 
 1-Image Block Matching: Uses the Mean Squared Error (MSE) method to find and highlight matching blocks between two images.
