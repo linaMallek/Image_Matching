@@ -1,6 +1,6 @@
-Input: Two images.
+**Input:** Two images.
 
-Output: Rectangles drawn around matching pixels in both images, highlighting the areas of similarity.
+**Output:** Rectangles drawn around matching pixels in both images, highlighting the areas of similarity using **recherche_block** and **recherche_decho** .
 
 This project includes two main functionalities:
 
